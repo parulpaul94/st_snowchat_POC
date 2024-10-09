@@ -153,7 +153,7 @@ def validate_sql(sql):
 
 if __name__ == "__main__":
     st.title("Snowflake-Streamlit")
-    msg = "Connect to your Snowflake database and ask questions about your data and get answers in real-time with visualization supported."
+    msg = "Connect with your GEN AI-powered assistant for Snowflake database queries."
     st.write(msg)
 
     gpt = OpenAIService()
