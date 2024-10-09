@@ -6,3 +6,4 @@ matplotlib==3.7.1
 plotly_express==0.4.1
 scikit-learn==1.2.2
 pyarrow==9.0.0
+cmake
