@@ -224,4 +224,3 @@ if __name__ == "__main__":
         answer = answer.replace("```python", "") # hotfix
         answer = answer.replace("```", "")
         exec(answer)
-This paste expires in <1 hour. Public IP access. Share whatever you see with others in seconds with Context.Terms of ServiceReport this
