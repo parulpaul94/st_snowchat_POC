@@ -9,6 +9,7 @@ from gpt import OpenAIService
 
 st.set_page_config(layout="wide")
 
+
 # Custom CSS for styling
 st.markdown(
     """
@@ -20,7 +21,7 @@ st.markdown(
         background-color: #4682B4;  /* White sidebar background */
     }
     .stTextInput, .stTextArea {
-        background-color: ##B2BEB5; /* White input field background */
+        background-color: #B2BEB5; /* White input field background */
         color: #333333; /* Dark text in input fields for contrast */
         border-radius: 15px; /* Rounded corners */
         border: 2px solid #00bcd4; /* Bright border color */
@@ -43,20 +44,29 @@ st.markdown(
     h1, h2, h3, h4, h5, h6 {
         color: #006064; /* Dark teal headers */
     }
-    </style>
+    .stPasswordInput .stTextInput div:last-child {
+    display: none; /* Hides the password toggle icon */
+    }
+    [title="Show password text"] {
+        display: none;
+    }
     """,
     unsafe_allow_html=True,
 )
 
 
+
 with st.sidebar:
     st.caption("Snowflake Credentials")
     os.environ["SNOWFLAKE_USER"] = st.text_input("User", value="siri")
-    os.environ["SNOWFLAKE_PASSWORD"] = st.text_input("Password", value="Techment@123", type="password")
+    # os.environ["SNOWFLAKE_PASSWORD"] = st.text_input("Password", value="Techment@123", placeholder="Enter your password")
+    os.environ["SNOWFLAKE_PASSWORD"] = st.text_input("Password", value="Techment@123",key="hidden_password", type="password")
     os.environ["SNOWFLAKE_ACCOUNT"] = st.text_input("Account", value="jv51685.central-india.azure")
     os.environ["SNOWFLAKE_WAREHOUSE"] = st.text_input("Warehouse", value="COMPUTE_WH")
     os.environ["SNOWFLAKE_SCHEMA"] = st.text_input("Schema", value="RAW")
     os.environ["SNOWFLAKE_DATABASE"] = st.text_input("Database", value="SALES_REVENUE_DATA")
+
+
 
     st.write("---")
     api_key = st.text_input("OpenAI API Key", type="password")
@@ -163,7 +173,7 @@ if __name__ == "__main__":
 
     # -- ask SQL question
     question = st.text_area(
-        "Ask a question about the database data",
+        "Hi! I’m Snow Chat, your data assistant. Ask me anything about your connected data, and let’s find insights together!",
         placeholder="What is the total revenue?",
         height=100,  
     )
@@ -176,8 +186,10 @@ if __name__ == "__main__":
         prompt = prompt.replace("<<TABLES>>", table_schemas)
         prompt = prompt.replace("<<QUESTION>>", question)
         answer = ask(prompt)
+
         # Remove any Markdown formatting
         answer = answer.replace("```sql", "").replace("```", "").strip()
+
 
         # Validate the SQL query before execution
         is_valid, keyword = validate_sql(answer)
@@ -212,3 +224,4 @@ if __name__ == "__main__":
         answer = answer.replace("```python", "") # hotfix
         answer = answer.replace("```", "")
         exec(answer)
+This paste expires in <1 hour. Public IP access. Share whatever you see with others in seconds with Context.Terms of ServiceReport this
